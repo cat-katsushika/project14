@@ -30,6 +30,10 @@ async def on_message(message):
     message_content = message.content
     channel_id = message.channel.id
 
+    if len(message_content) >= 2000:
+        await message.channel.send(f"メッセージが長いため翻訳を諦めました!\n文字数: {len(message_content)} \n{message_content}")
+        return
+
     text = create_ai_comment(message_content)
 
     webhook_url = WEBHOOK_URLS[str(channel_id)]
